@@ -1,0 +1,15 @@
+Revision history for Perl module HTML::ParagraphSplit
+
+0.03 Sun Jul 30 16:52:00 2006
+    - [rt.cpan.org #20759] FIXED: HTML::ParagraphSplit properly handles nested
+      content that does not contain any breaks.
+
+0.02 Sat Jul 22 21:43:00 2006
+    - Fixed a bug that caused HTML::ParagraphSplit to fail in actual use even
+      though all tests passed because the tests used HTML::TreeBuilder, but
+      HTML::ParagraphSplit does not.
+
+0.01 Wed Jul 19 22:10:40 2006
+    - original version; created by ExtUtils::ModuleMaker 0.47
+
+
