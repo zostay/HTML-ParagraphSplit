@@ -1,5 +1,9 @@
 Revision history for Perl module HTML::ParagraphSplit
 
+0.04 Sun Aug 26 21:45:00 2007
+    - Fixed a minor documentation bug.
+    - Switched to using Module::Install instead of Module::Build.
+
 0.03 Sun Jul 30 16:52:00 2006
     - [rt.cpan.org #20759] FIXED: HTML::ParagraphSplit properly handles nested
       content that does not contain any breaks.
