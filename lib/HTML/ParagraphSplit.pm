@@ -3,7 +3,7 @@ package HTML::ParagraphSplit;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '1.05';
 
 require Exporter;
 
@@ -11,8 +11,10 @@ our @ISA = qw( Exporter );
 
 our @EXPORT_OK = qw( split_paragraphs split_paragraphs_to_text );
 
+use HTML::Entities;
 use HTML::TreeBuilder;
 use HTML::Tagset;
+use Scalar::Util qw/ blessed /;
 
 use vars qw( %p_content );
 *p_content = *HTML::Tagset::is_Possible_Strict_P_Content;
@@ -279,7 +281,7 @@ sub _split_paragraphs_guts {
     for my $content (@content) {
 
         # Handle nested elements.
-        if (ref $content) {
+        if (blessed $content) {
 
             # Get the tag name
             my $tag = $content->tag;
@@ -296,6 +298,7 @@ sub _split_paragraphs_guts {
 
             # It's not a phrase level tag
             else {
+
                 if (defined $unparsed_phrase) {
                     # Process the accumulator and empty it
                     _split_paragraphs_phrases($h, $unparsed_phrase, $options);
@@ -314,6 +317,8 @@ sub _split_paragraphs_guts {
 
         # Text node, just append to the accumulator
         else {
+            # Need to make sure entities are escaped first
+            $content = encode_entities($content);
             $unparsed_phrase .= $content;
         }
     }
@@ -338,7 +343,7 @@ sub split_paragraphs {
     my $tree;
 
     # The first argument is a tree; use it.
-    if (UNIVERSAL::isa($input, 'HTML::Element')) {
+    if (blessed $input && $input->isa('HTML::Element')) {
         $tree = $input;
     }
 

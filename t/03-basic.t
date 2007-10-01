@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 8;
 require 't/helper.pl';
 
 use HTML::ParagraphSplit qw( split_paragraphs_to_text );
@@ -15,6 +15,8 @@ my @filenames = qw(
     with-explicit-blocks
     with-extra-breaks
     with-phrases
+    with-entities
+    with-wrapped-entities
 );
 
 for my $filename (@filenames) {
